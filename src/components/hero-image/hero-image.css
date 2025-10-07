@@ -1,0 +1,49 @@
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(70vh - 56px); /* Adjust for navbar height */
+    background: linear-gradient(to bottom, rgba(33,37,41,0) 70%, rgba(33,37,41,1) 100%);
+}
+
+.hero-text, .hero-image {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-text {
+    padding: 1rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.hero-image {
+    background-image:
+        linear-gradient(to bottom, rgba(33,37,41,0) 70%, rgba(33,37,41,1) 100%),
+        url('orchestra.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: calc(70vh - 56px); /* Adjust for navbar height */
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column;
+    }
+    .hero-text, .hero-image {
+        flex: none;
+        width: 100%;
+        height: auto;
+    }
+    .hero-image {
+        min-height: calc(40vh - 56px);
+    }
+}
