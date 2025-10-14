@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BsoNavBar } from "../components/bso-nav-bar/bso-nav-bar";
 import { HeroImage } from "../components/hero-image/hero-image";
+import { EventComponent } from "../components/event-component/event-component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BsoNavBar, HeroImage],
+  imports: [RouterOutlet, BsoNavBar, HeroImage, EventComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

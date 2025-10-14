@@ -1,0 +1,10 @@
+.events-container {
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16rem;
+    row-gap: 4rem;
+    padding: 2rem;
+    background-color: rgb(33, 37, 41);
+}
