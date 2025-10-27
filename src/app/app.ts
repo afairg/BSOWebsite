@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BsoNavBar } from "../components/bso-nav-bar/bso-nav-bar";
 import { HeroImage } from "../components/hero-image/hero-image";
 import { EventComponent } from "../components/event-component/event-component";
+import 'bootswatch/dist/lux/bootstrap.min.css'; // Importing Bootswatch Lux theme CSS}
 
 @Component({
   selector: 'app-root',
