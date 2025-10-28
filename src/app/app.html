@@ -1,11 +1,43 @@
 <body>
   <app-bso-nav-bar></app-bso-nav-bar>
-  <app-hero-image></app-hero-image>
+
+  <!-- In the future, events will be fetched from a database -->
+  <app-event-component [hero]="true" title="Vivaldi's Four Seasons" description="The Four Seasons (Italian: Le quattro stagioni) is a group of four violin concerti by Italian composer Antonio Vivaldi, each of which gives musical expression to a season of the year." date="October 12, 2025, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="orchestra.jpg"></app-event-component>
   <div class="events-container">
-    <app-event-component></app-event-component>
-    <app-event-component></app-event-component>
-    <app-event-component></app-event-component>
+    <app-event-component title="Event 1" description="Example description 1" date="Thursday, Dec 11, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="NEC-Philharmonia.jpg"></app-event-component>
+    <app-event-component title="Event 2" description="Example description 2" date="Friday, Dec 12, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="performer-2.jpg"></app-event-component>
+    <app-event-component title="Event 3" description="Example description 3" date="Saturday, Dec 13, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="performer-3.jpeg"></app-event-component>
+  </div>
+  <div class="bg-primary d-flex justify-content-center p-4 pb-5">
     <button class="btn btn-secondary">See All</button>
+  </div>
+  
+  <!-- Footer Section -->
+  <div class="footer-container d-flex justify-content-around bg-primary">
+    <div class="mt-3">
+      <p class="text-light text-center fw-bold"><i class="bi bi-geo-alt"></i> Address</p>
+      <p class="text-light text-center m-0 fs-6">123 W. Broad Street, Suite 4</p>
+      <p class="text-light text-center fs-6">Cookeville, TN, 38501</p>
+    </div>
+    <div class="m-3">
+      <p class="text-light text-center fw-bold"><i class="bi bi-telephone"></i> Phone</p>
+      <p class="text-light text-center m-0 fs-5">(931) 525-2633</p>
+    </div>
+    <div class="m-3">
+      <p class="text-light text-center fw-bold"><i class="bi bi-envelope"></i> Email</p>
+      <p class="text-light text-center fs-5">contact@bryansymphony.org</p>
+    </div>
+    <div class="m-3">
+      <p class="text-light text-center fw-bold"><i class="bi bi-hand-thumbs-up"></i> Connect</p>
+      <div class="d-flex justify-content-center">
+        <i class="bi bi-instagram text-light me-1"></i>
+        <i class="bi bi-facebook text-light"></i>
+      </div>
+    </div>
+    <div class="m-3">
+      <p class="text-light text-center fw-bold"><i class="bi bi-person"></i> Administration</p>
+      <p class="text-center"><a href="" class="text-light">Log In</a></p>
+    </div>
   </div>
 </body>
 

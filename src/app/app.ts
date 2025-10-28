@@ -2,13 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BsoNavBar } from "../components/bso-nav-bar/bso-nav-bar";
-import { HeroImage } from "../components/hero-image/hero-image";
 import { EventComponent } from "../components/event-component/event-component";
 import 'bootswatch/dist/lux/bootstrap.min.css'; // Importing Bootswatch Lux theme CSS}
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BsoNavBar, HeroImage, EventComponent],
+  imports: [RouterOutlet, BsoNavBar, EventComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

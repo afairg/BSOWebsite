@@ -1,8 +1,25 @@
-<div class="card text-center" style="width: 20rem;">
-    <img src="NEC-Philharmonia.jpg" class="card-img-top" alt="...">
-    <div class="card-body justify-content-center align-items-center d-flex flex-column">
-        <h5 class="card-title">Event</h5>
-        <p class="card-text">Upcoming event, example descrition</p>
-        <a href="#" class="btn btn-primary">Buy Tickets</a>
+@if (!hero()) {
+    <div class="event-component card text-center" style="width: 20rem;">
+        <img src={{imageUrl()}} class="card-img-top" alt="...">
+        <div class="card-body justify-content-center align-items-center d-flex flex-column">
+            <h5 class="card-title">{{title()}}</h5>
+            <p class="card-text">{{description()}}</p>
+            <p class="card-text">{{date()}}</p>
+            <p class="card-text">{{location()}}</p>
+            <a href="#" class="btn btn-primary">Buy Tickets</a>
+        </div>
     </div>
-</div>
+} @else {
+    <div class="hero-container">
+        <div class="hero-image">
+        </div>
+        <div class="hero-text">
+            <h1 style="font-weight: bold;">{{title()}}</h1>
+            <p class="hero-description">The Four Seasons (Italian: Le quattro stagioni) is a group of four violin concerti by Italian composer Antonio Vivaldi, each of which gives musical expression to a season of the year.</p>
+            <h3>October 12, 2025, 3:00 PM</h3>
+            <hr/>
+            <h4>Wattenbarger Auditorium</h4>
+            <button class="btn btn-primary btn-lg mt-4" type="submit">Buy Tickets</button>
+        </div>
+    </div>
+}
