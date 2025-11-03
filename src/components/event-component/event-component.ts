@@ -8,6 +8,7 @@ import { Component, input, signal } from '@angular/core';
 })
 export class EventComponent {
   public isHero = input<boolean>(false);
+  public type = input<string>('general');
   public title = input<string>('');
   public description = input<string>('');
   public location = input<string>('');
