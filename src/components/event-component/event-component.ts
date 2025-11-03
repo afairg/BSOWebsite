@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-event-component',
@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './event-component.css'
 })
 export class EventComponent {
-  public hero = input<boolean>(false);
+  public isHero = input<boolean>(false);
   public title = input<string>('');
   public description = input<string>('');
   public location = input<string>('');

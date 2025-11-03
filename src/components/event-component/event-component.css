@@ -20,9 +20,6 @@
 }
 
 .hero-image {
-    background-image:
-        linear-gradient(to bottom, rgba(33,37,41,0) 40%, rgba(26,26,26,1) 100%),
-        url('../../../public/orchestra.jpg');
     background-size: cover;
     background-position: center;
     min-height: calc(70vh - 56px); /* Adjust for navbar height */

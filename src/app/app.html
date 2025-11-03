@@ -2,11 +2,26 @@
   <app-bso-nav-bar></app-bso-nav-bar>
 
   <!-- In the future, events will be fetched from a database -->
-  <app-event-component [hero]="true" title="Vivaldi's Four Seasons" description="The Four Seasons (Italian: Le quattro stagioni) is a group of four violin concerti by Italian composer Antonio Vivaldi, each of which gives musical expression to a season of the year." date="October 12, 2025, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="orchestra.jpg"></app-event-component>
+  @if (events().length > 0) {
+    <app-event-component
+      [isHero]="true"
+      [title]="heroEvent() ? heroEvent()!.title : ''"
+      [description]="heroEvent() ? heroEvent()!.description : ''"
+      [date]="heroEvent() ? heroEvent()!.date : ''"
+      [location]="heroEvent() ? heroEvent()!.location : ''"
+      [imageUrl]="heroEvent() ? heroEvent()!.imageUrl : ''"></app-event-component>
+  }
   <div class="events-container">
-    <app-event-component title="Event 1" description="Example description 1" date="Thursday, Dec 11, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="NEC-Philharmonia.jpg"></app-event-component>
-    <app-event-component title="Event 2" description="Example description 2" date="Friday, Dec 12, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="performer-2.jpg"></app-event-component>
-    <app-event-component title="Event 3" description="Example description 3" date="Saturday, Dec 13, 3:00 PM" location="Wattenbarger Auditorium" imageUrl="performer-3.jpeg"></app-event-component>
+    @for (event of upcomingEvents(); track event.title) {
+      <app-event-component
+        [isHero]="false"
+        [title]="event.title"
+        [description]="event.description"
+        [date]="event.date"
+        [location]="event.location"
+        [imageUrl]="event.imageUrl"
+      ></app-event-component>
+    }
   </div>
   <div class="bg-primary d-flex justify-content-center p-4 pb-5">
     <button class="btn btn-secondary">See All</button>

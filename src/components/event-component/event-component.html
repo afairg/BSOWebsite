@@ -1,4 +1,4 @@
-@if (!hero()) {
+@if (!isHero()) {
     <div class="event-component card text-center" style="width: 20rem;">
         <img src={{imageUrl()}} class="card-img-top" alt="...">
         <div class="card-body justify-content-center align-items-center d-flex flex-column">
@@ -11,14 +11,13 @@
     </div>
 } @else {
     <div class="hero-container">
-        <div class="hero-image">
-        </div>
+        <img class="hero-image" src="{{imageUrl()}}" alt="Hero Image"/>
         <div class="hero-text">
             <h1 style="font-weight: bold;">{{title()}}</h1>
-            <p class="hero-description">The Four Seasons (Italian: Le quattro stagioni) is a group of four violin concerti by Italian composer Antonio Vivaldi, each of which gives musical expression to a season of the year.</p>
-            <h3>October 12, 2025, 3:00 PM</h3>
+            <p class="hero-description">{{description()}}</p>
+            <h3>{{date()}}</h3>
             <hr/>
-            <h4>Wattenbarger Auditorium</h4>
+            <h4>{{location()}}</h4>
             <button class="btn btn-primary btn-lg mt-4" type="submit">Buy Tickets</button>
         </div>
     </div>
