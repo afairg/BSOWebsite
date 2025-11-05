@@ -14,4 +14,9 @@ export class EventComponent {
   public location = input<string>('');
   public date = input<string>('');
   public imageUrl = input<string>('');
+
+  ngOnInit() {
+    console.log('imageUrl:', this.imageUrl());
+    console.log('title', this.title());
+  }
 }

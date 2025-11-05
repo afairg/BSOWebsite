@@ -7,14 +7,14 @@ export interface Event {
   description: string;
   date: string;
   location: string;
-  imageUrl: string;
+  imageurl: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'http://localhost:3000/api/events';
+  private apiUrl = 'https://bso.swollenhippo.com/backend/server.php';
 
   constructor(private http: HttpClient) {}
 

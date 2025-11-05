@@ -5,7 +5,7 @@
       [description]="heroEvent() ? heroEvent()!.description : ''"
       [date]="heroEvent() ? heroEvent()!.date : ''"
       [location]="heroEvent() ? heroEvent()!.location : ''"
-      [imageUrl]="heroEvent() ? heroEvent()!.imageUrl : ''"></app-event-component>
+      [imageUrl]="heroEvent() ? heroEvent()!.imageurl : ''"></app-event-component>
   }
   <div class="events-container">
     @for (event of upcomingEvents(); track event.title) {
@@ -15,10 +15,10 @@
         [description]="event.description"
         [date]="event.date"
         [location]="event.location"
-        [imageUrl]="event.imageUrl"
+        [imageUrl]="event.imageurl"
       ></app-event-component>
     }
   </div>
   <div class="bg-primary d-flex justify-content-center p-4 pb-5">
-    <button class="btn btn-secondary">See All</button>
+    <a class="btn btn-secondary" type="button" href="all-events" routerLink="all-events">See All</a>
   </div>
