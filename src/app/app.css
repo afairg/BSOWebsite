@@ -1,6 +1,8 @@
 .footer-container {
+    display: flex;
     border-top: 1px solid rgb(85, 89, 92);
     flex-wrap: wrap;
+    box-shadow: 0 50vh 0 50vh rgba(26, 26, 26, 1);
 
     @media (max-width: 768px) {
         flex-direction: column;

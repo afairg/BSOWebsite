@@ -14,7 +14,7 @@ export interface Event {
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'https://bso.swollenhippo.com/backend/server.php';
+  private apiUrl = 'https://bso.swollenhippo.com/backend/api/events';
 
   constructor(private http: HttpClient) {}
 
