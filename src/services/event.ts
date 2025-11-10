@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface Event {
   title: string;
+  type: string;
   description: string;
   date: string;
   location: string;
@@ -14,11 +15,34 @@ export interface Event {
   providedIn: 'root'
 })
 export class EventService {
-  private apiUrl = 'https://bso.swollenhippo.com/backend/api/events';
+  private allEventsUrl = 'https://bso.swollenhippo.com/backend/api/events';
+  private imageUploadUrl = 'https://bso.swollenhippo.com/backend/api/upload-image';
+
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl);
+  getAllEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(this.allEventsUrl);
   }
+
+  addEvent(event: Event): Observable<any> {
+    return this.http.post<any>(this.allEventsUrl, event)
+  }
+
+  uploadImage(formData: FormData): Observable<any> {
+    console.log(formData);
+    return this.http.post<{ url: string }>(this.imageUploadUrl, formData);
+  }
+
+  deleteEvent(eventTitle: string): Observable<any> {
+    return this.http.delete(`https://bso.swollenhippo.com/backend/api/events?title=${encodeURIComponent(eventTitle)}`);
+  }
+
+  updateEvent(event: Event): Observable<any> {
+    return this.http.put<any>(this.allEventsUrl, event);
+  }
+
+  // getSubscriptionEvents(): Observable<Event[]> {
+
+  // }
 }

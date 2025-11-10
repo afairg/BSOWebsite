@@ -24,7 +24,7 @@ export class Home {
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe({
+    this.eventService.getAllEvents().subscribe({
       next: (data) => {
         console.log('Events fetched:', data);
         this.events.set(data);
