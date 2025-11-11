@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, ElementRef, signal, ViewChild } from '@angular/core';
 import { EventService, Event } from '../../services/event';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../../services/auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin',
@@ -20,6 +21,7 @@ export class Admin {
     type: '',
     description: '',
     date: '',
+    time: '',
     location: '',
     imageurl: ''
   };
@@ -28,6 +30,7 @@ export class Admin {
     type: '',
     description: '',
     date: '',
+    time: '',
     location: '',
     imageurl: ''
   }
@@ -53,12 +56,15 @@ export class Admin {
     return Array.from({ length: total }, (_, i) => i + 1);
   })
 
-  constructor(private http: HttpClient, private eventService: EventService) {}
+  constructor(private eventService: EventService, public authService: Auth) {}
+
+  @ViewChild('addEventModal') addEventModal!: ElementRef;
 
   ngOnInit() {
     this.loadEvents();
   }
 
+  // Fetch all events from the server
   loadEvents() {
     this.eventService.getAllEvents().subscribe({
       next: (data: Event[]) => {
@@ -70,10 +76,16 @@ export class Admin {
     });
   }
 
+  // Add a new event to the database
   addEvent() {
     // Validate the input fields
     if (!this.newEvent.title || !this.newEvent.type || !this.newEvent.date || !this.newEvent.description || !this.newEvent.location) {
-      alert('Please fill in all fields.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please fill in all fields.',
+        icon: 'error',
+        confirmButtonText: 'Close'
+      });
       return;
     }
 
@@ -84,10 +96,10 @@ export class Admin {
 
     this.eventService.uploadImage(formData).subscribe({
       next: (response: any) => {
-        this.newEvent.imageurl = response.url; // ✅ Now we have the real URL
+        this.newEvent.imageurl = response.url;
         console.log('Image uploaded:', response.url);
 
-        // ✅ Only add the event AFTER the image upload succeeds
+        // Only add the event after the image upload succeeds
         this.sendAddEventRequest();
       },
       error: (err) => {
@@ -101,6 +113,7 @@ export class Admin {
   }
   }
 
+  // Delete an event by title
   deleteEvent(eventTitle: string) {
     if (confirm(`Are you sure you want to delete the event: ${eventTitle}?`)) {
       this.eventService.deleteEvent(eventTitle).subscribe({
@@ -115,16 +128,20 @@ export class Admin {
     }
   }
 
+  // Prepare to edit an event
   editEvent(event: Event) {
     this.selectedEvent = { ...event };
   }
 
+  // Update an existing event
   updateEvent() {
+    const datetime = `${this.selectedEvent.date}T${this.selectedEvent.time}`;
+    const event = { ...this.selectedEvent, date: datetime };
     if (!this.selectedEvent.title || !this.selectedEvent.type || !this.selectedEvent.date || !this.selectedEvent.description || !this.selectedEvent.location) {
       alert('Please fill in all fields.');
       return;
     }
-    this.eventService.updateEvent(this.selectedEvent).subscribe({
+    this.eventService.updateEvent(event).subscribe({
       next: () => {
         alert(`Event "${this.selectedEvent.title}" updated successfully.`);
         this.loadEvents();
@@ -140,6 +157,7 @@ export class Admin {
     this.selectedFile = event.target.files[0];
   }
 
+  // Logic for uploading an image to the server
   uploadImage() {
     if (!this.selectedFile) {
       return;
@@ -157,20 +175,23 @@ export class Admin {
     });
   }
 
+  // Logic to send an add event request after image is uploaded
   sendAddEventRequest() {
-  this.eventService.addEvent(this.newEvent).subscribe({
-    next: (response: any) => {
-      alert(response.message || 'Event added successfully!');
-      this.loadEvents();
-    },
-    error: (err) => {
-      console.error('Failed to add event:', err);
-      alert('Failed to add event. Please try again.');
-    }
-  });
-}
+    const datetime = `${this.newEvent.date}T${this.newEvent.time}`;
+    const event = { ...this.newEvent, date: datetime };
+    this.eventService.addEvent(event).subscribe({
+      next: (response: any) => {
+        alert(response.message || 'Event added successfully!');
+        this.loadEvents();
+      },
+      error: (err) => {
+        console.error('Failed to add event:', err);
+        alert('Failed to add event. Please try again.');
+      }
+    });
+  }
 
-  // Method to change the current page
+  // Method to change the current page of the table
   changePage(newPage: number) {
     if (newPage >= 1 && newPage <= this.totalPages()) {
       this.currentPage.set(newPage);

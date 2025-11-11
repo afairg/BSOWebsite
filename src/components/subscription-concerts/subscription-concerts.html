@@ -1,1 +1,36 @@
-<p>subscription-concerts works!</p>
+<div class="header-container">
+    <h1 class="text-center text-light mb-0 p-4">Subscription Concerts</h1>
+</div>
+<div class="events-container">
+    @for (event of events(); track event.title) {
+        <app-event-component class="m-3"
+        [isHero]="false"
+        [title]="event.title"
+        [type]="event.type"
+        [description]="event.description"
+        [date]="event.date"
+        [location]="event.location"
+        [imageUrl]="event.imageurl"></app-event-component>
+    }
+</div>
+<div class="form-container">
+    <h1 class="text-center mt-4">Season Tickets</h1>
+    <p class="text-center">For Season Tickets, call (931) 525-2633 or fill out the form below!</p>
+    <form>
+        <fieldset class="m-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name">
+        </fieldset>
+        <fieldset class="m-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email">
+        </fieldset>
+        <fieldset class="m-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea type="text" class="form-control" id="message"></textarea>
+        </fieldset>
+        <fieldset class="m-3">
+            <button class="btn btn-primary submit-button" type="submit">Submit</button>
+        </fieldset>
+    </form>
+</div>

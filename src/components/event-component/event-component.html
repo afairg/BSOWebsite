@@ -4,9 +4,13 @@
         <div class="card-body justify-content-center align-items-center d-flex flex-column">
             <h5 class="card-title">{{title()}}</h5>
             <p class="card-text">{{description()}}</p>
-            <p class="card-text">{{date()}}</p>
+            <p class="card-text">{{date() | date: 'MMMM d, h:mm a'}}</p>
             <p class="card-text">{{location()}}</p>
-            <a href="#" class="btn btn-primary">Buy Tickets</a>
+            @if (type() === 'Education') {
+                <button class="btn btn-primary disabled">Free Admission</button>
+            } @else {
+                <a href="#" class="btn btn-primary">Buy Tickets</a>
+            }
         </div>
     </div>
 } @else {
@@ -19,10 +23,14 @@
         <div class="hero-text">
             <h1 style="font-weight: bold;">{{title()}}</h1>
             <p class="hero-description">{{description()}}</p>
-            <h3>{{date()}}</h3>
+            <h3>{{date() | date: 'MMMM d, h:mm a'}}</h3>
             <hr/>
             <h4>{{location()}}</h4>
-            <button class="btn btn-primary btn-lg mt-4" type="submit">Buy Tickets</button>
+            @if (type() === 'Education') {
+                <button class="btn btn-primary btn-lg mt-4 disabled">Free Admission</button>
+            } @else {
+                <button class="btn btn-primary btn-lg mt-4" type="submit">Buy Tickets</button>
+            }
         </div>
     </div>
 }

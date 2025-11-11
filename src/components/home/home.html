@@ -2,6 +2,7 @@
     <app-event-component
       [isHero]="true"
       [title]="heroEvent() ? heroEvent()!.title : ''"
+      [type]="heroEvent() ? heroEvent()!.type : ''"
       [description]="heroEvent() ? heroEvent()!.description : ''"
       [date]="heroEvent() ? heroEvent()!.date : ''"
       [location]="heroEvent() ? heroEvent()!.location : ''"
@@ -12,6 +13,7 @@
       <app-event-component
         [isHero]="false"
         [title]="event.title"
+        [type]="event.type"
         [description]="event.description"
         [date]="event.date"
         [location]="event.location"

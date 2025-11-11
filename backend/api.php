@@ -19,21 +19,21 @@ header("Content-Type: application/json");
 
 // Handle GET requests to fetch all events
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backend/api/events') {
-    $result = $conn->query("SELECT * FROM events");
+    $result = $conn->query("SELECT * FROM events ORDER BY date ASC");
     $data = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($data);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backend/api/subscription-events') {
-    $result = $conn->query("SELECT * FROM events WHERE type = 'Subscription'");
+    $result = $conn->query("SELECT * FROM events WHERE type = 'Subscription' ORDER BY date ASC");
     $data = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($data);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backend/api/education-events') {
-    $result = $conn->query("SELECT * FROM events WHERE type = 'Education'");
+    $result = $conn->query("SELECT * FROM events WHERE type = 'Education' ORDER BY date ASC");
     $data = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($data);
     exit;
@@ -41,19 +41,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backen
 
 // Handle POST requests to add a new event
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/backend/api/events') !== false) {
-    // Read the JSON body
     $input = json_decode(file_get_contents('php://input'), true);
 
-    // Validate input
     if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl'])) {
         http_response_code(400);
-        echo json_encode(["error" => "Invalid input. 'title', 'date', and 'description' are required."]);
+        echo json_encode(["error" => "Invalid input. All fields are required."]);
         exit;
     }
 
-    // Prepare and execute the SQL query
+    $title = $input['title'];
+    $type = $input['type'];
+    $date = $input['date'];
+    $description = $input['description'];
+    $location = $input['location'];
+    $imageurl = $input['imageurl'];
+
     $stmt = $conn->prepare("INSERT INTO events (title, type, date, description, location, imageurl) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $input['title'], $input['type'], $input['date'], $input['description'], $input['location'], $input['imageurl']);
+    $stmt->bind_param("ssssss", $title, $type, $date, $description, $location, $imageurl);
 
     if ($stmt->execute()) {
         http_response_code(201);
@@ -92,26 +96,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/backend/api/events') !== false) {
-    // Read the JSON body
     $input = json_decode(file_get_contents('php://input'), true);
 
-    // Validate input
     if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl'])) {
         http_response_code(400);
-        echo json_encode(["error" => "Invalid input. 'title', 'type', 'date', 'description', 'location', and 'imageurl' are required."]);
+        echo json_encode(["error" => "Invalid input. All fields are required."]);
         exit;
     }
 
     $title = $input['title'];
     $type = $input['type'];
-    $date = $input['date'];
+    $date = $input['date']; // Ensure this includes both date and time
     $description = $input['description'];
     $location = $input['location'];
     $imageurl = $input['imageurl'];
 
-    // Prepare and execute the SQL query
-    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, location = ? WHERE title = ?");
-    $stmt->bind_param("sssss", $type, $date, $description, $location, $title);
+    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, location = ?, imageurl = ? WHERE title = ?");
+    $stmt->bind_param("ssssss", $type, $date, $description, $location, $imageurl, $title);
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {

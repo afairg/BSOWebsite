@@ -1,1 +1,70 @@
-<p>education works!</p>
+<div class="header-container">
+    <h1 class="text-center text-light mb-0 p-4">Education Events</h1>
+</div>
+<div class="events-container">
+    @for (event of events(); track event.title) {
+        <app-event-component class="m-3"
+        [isHero]="false"
+        [title]="event.title"
+        [type]="event.type"
+        [description]="event.description"
+        [date]="event.date"
+        [location]="event.location"
+        [imageUrl]="event.imageurl"></app-event-component>
+    }
+</div>
+<div class="education-description">
+    <div class="bisection">
+        <div class="bisection-text">
+            <div>
+                <h2 class="text-center mt-4">Education Concerts</h2>
+                <p class="p-4">
+                    Since 1976, the Bryan Symphony Orchestra has performed dozens of education concerts for school children in Putnam County. The Bryan Symphony Orchestra Association, pays for all costs associated with the education concerts so that children can attend concerts free of charge. 
+                    In 2011, the BSO began offering an additional performance for the fourth-graders of Warren County, home of the BSO's namesake, Charles Faulkner Bryan and in 2016 the Bryan Symphony added yet another concert for the students of Cumberland County to attend. In recent years, we've expanded to include Jackson and White counties, so that each year a total of between 2500 and 3000 students experience live music on Tennessee Tech's campus.
+                    Many students might never have the opportunity to see a live symphony orchestra. The BSOA wants to make sure that is not the case in the Upper Cumberland region! 
+                    The Bryan Symphony Orchestra Association works directly with a public school educator to create lesson plans that involve state curriculum standards  including music, history, geography, and more!
+                </p>
+            </div>
+        </div>
+        <div class="bisection-image mt-5 mb-5">
+            <img src="43.png" alt="Education picture">
+        </div>
+    </div>
+</div>
+<div class="bisection">
+    <div class="bisection-image mt-5 mb-5">
+        <img src="43.png" alt="Education picture">
+    </div>
+    <div class="bisection-text">
+        <div>
+            <h2 class="text-center">Music Education</h2>
+            <p class="p-4">The Bryan Symphony strives to provide accessible music education to all students in our region. Not only are these free student concerts educational, they are also interactive!</p>
+        </div>
+    </div>
+</div>
+<div class="bisection">
+    <div class="bisection-text">
+        <div>
+            <h2 class="text-center">Scholarships and Opportunities</h2>
+            <p class="p-4">The BSO administers the Dr. Jerry Bart Ayers Memorial Scholarship for outstanding music students. The award was made in honor of Dr. Jerry Bart Ayers, a long-time faculty member and administrator at TTU whose advocacy of artistic activities included serving on the Bryan Symphony Board of Directors.
+            The fact that the Bryan Symphony Orchestra is in residence at the University provides a rare opportunity for baccalaureate music students. Every season, select students from each teaching studio are invited to perform alongside their professors and other professional musicians</p>
+        </div>
+    </div>
+    <div class="bisection-image mt-5 mb-5">
+        <img src="43.png" alt="Education picture">
+    </div>
+</div>
+<div class="bisection">
+    <div class="bisection-image mt-5 mb-5">
+        <img src="43.png" alt="Education picture">
+    </div>
+    <div class="bisection-text">
+        <div>
+            <h2 class="text-center">The Joan Derryberry Competition</h2>
+            <p class="p-4">
+                A rigorous day-long process, the Joan Derryberry Memorial Concerto Competition requires students to play their choice of concerto on their major instrument, and the contest is judged by independent jurors. The concerto chosen by the winning student is performed on the program of  the Bryan Symphony’s February subscription concert.
+                Along with a scholarship comes an opportunity for the winner to perform a solo with the Bryan Symphony – a rare opportunity for college students anywhere in the country.
+            </p>
+        </div>
+    </div>
+</div>

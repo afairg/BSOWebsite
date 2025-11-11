@@ -38,9 +38,11 @@
           </ul>
         </li>
         <!-- Add a check here to make sure admin is logged in before displaying the 'Administration' tab-->
-         <li class="nav-item mx-4">
-          <a class="nav-link" href="admin" routerLink="admin">Administration</a>
-         </li>
+        @if (authService.isAdmin()) {
+          <li class="nav-item mx-4">
+            <a class="nav-link" href="admin" routerLink="admin">Administration</a>
+          </li>
+        }
       </ul>
       <button class="btn btn-warning d-flex" type="button" style="float: right;">Donate</button>
     </div>

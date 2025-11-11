@@ -7,6 +7,7 @@ export interface Event {
   type: string;
   description: string;
   date: string;
+  time: string;
   location: string;
   imageurl: string;
 }
@@ -23,6 +24,14 @@ export class EventService {
 
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.allEventsUrl);
+  }
+
+  getSubscriptionEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>('https://bso.swollenhippo.com/backend/api/subscription-events');
+  }
+
+  getEducationEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>('https://bso.swollenhippo.com/backend/api/education-events');
   }
 
   addEvent(event: Event): Observable<any> {
