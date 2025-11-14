@@ -9,3 +9,7 @@
         align-items: center;
     }
 }
+
+.flex-item {
+    flex: 1;
+}

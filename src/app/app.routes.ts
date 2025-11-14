@@ -8,7 +8,7 @@ import { Education } from '../components/education/education';
 import { SupportYourSymphony } from '../components/support-your-symphony/support-your-symphony';
 import { HistoryAndMission } from '../components/history-and-mission/history-and-mission';
 import { MusicDirector } from '../components/music-director/music-director';
-import { Personnel } from '../components/personnel/personnel';
+import { PersonnelPage } from '../components/personnel/personnel';
 import { CareerOpportunities } from '../components/career-opportunities/career-opportunities';
 import { BoardOfDirectors } from '../components/board-of-directors/board-of-directors';
 import { SeasonSponsors } from '../components/season-sponsors/season-sponsors';
@@ -24,7 +24,7 @@ export const routes: Routes = [
     { path: 'support-your-symphony', component: SupportYourSymphony },
     { path: 'history-and-mission', component: HistoryAndMission },
     { path: 'music-director', component: MusicDirector },
-    { path: 'personnel', component: Personnel },
+    { path: 'staff-and-musicians', component: PersonnelPage },
     { path: 'career-opportunities', component: CareerOpportunities },
     { path: 'board-of-directors', component: BoardOfDirectors },
     { path: 'season-sponsors', component: SeasonSponsors },

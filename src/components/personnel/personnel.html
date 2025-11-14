@@ -1,1 +1,20 @@
-<p>personnel works!</p>
+<div class="header-container pb-4">
+    <h1 class="text-center text-light mb-0 p-4">Staff</h1>
+    <p class="text-center text-light description-text">The staff of the Bryan Symphony Orchestra is a small but mighty team working tirelessly behind the scenes to ensure every performance, event, and initiative runs smoothly. Each member brings unique expertise—from operations and development to marketing and production—and it’s their collaboration, clear communication, and shared commitment to excellence that keeps the BSO thriving. Their dedication and teamwork are the unseen rhythm behind every note you hear.</p>
+</div>
+<div class="personnel-container">
+    @for (person of people(); track person.fullname) {
+        <app-person-component class="m-3"
+        [isHero]="false"
+        [fullName]="person.fullname"
+        [title]="person.title"
+        [description]="person.description"
+        [email]="person.email"
+        [phone]="person.phone"
+        [imageUrl]="person.imageurl"></app-person-component>
+    }
+</div>
+<div class="header-container pb-4">
+    <h1 class="text-center text-light mb-0 p-4">Musicians</h1>
+    <p class="text-center text-light description-text">We are proud that our core musicians are the faculty in the School of Music at Tennessee Technological University. Full faculty list <a class="text-light" href="https://www.tntech.edu/fine-arts/music/faculty-staff.php">here</a>. Our relationship to Tennessee Tech (Tech yeah!) is a very special one. Our orchestra also includes local and regional professional musicians. Student performers who have auditioned to sit alongside their faculty mentors also perform</p>
+</div>

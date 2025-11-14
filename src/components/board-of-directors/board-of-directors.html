@@ -1,1 +1,15 @@
-<p>board-of-directors works!</p>
+<div class="header-container pb-4">
+    <h1 class="text-center text-light mb-0 p-4">Board of Directors</h1>
+</div>
+<div class="personnel-container">
+    @for (person of people(); track person.fullname) {
+        <app-person-component class="m-3"
+        [isHero]="false"
+        [fullName]="person.fullname"
+        [title]="person.title"
+        [description]="person.description"
+        [email]="person.email"
+        [phone]="person.phone"
+        [imageUrl]="person.imageurl"></app-person-component>
+    }
+</div>

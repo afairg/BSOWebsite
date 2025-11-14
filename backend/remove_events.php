@@ -1,7 +1,7 @@
 <?php
 require 'db_config.php';
 
-$sql = "DELETE FROM events;";
+$sql = "DELETE FROM personnel;";
 
 if ($conn->query($sql) === TRUE) {
   echo "✅ Data deleted successfully!";

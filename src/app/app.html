@@ -5,28 +5,27 @@
   
   <!-- Footer Section -->
   <div class="footer-container d-flex justify-content-around bg-primary">
-    <div class="mt-3">
+    <div class="m-3 flex-item text-center">
       <p class="text-light text-center fw-bold"><i class="bi bi-geo-alt"></i> Address</p>
-      <p class="text-light text-center m-0 fs-6">123 W. Broad Street, Suite 4</p>
-      <p class="text-light text-center fs-6">Cookeville, TN, 38501</p>
+      <a class="text-light text-center m-0 fs-5 link-underline link-underline-opacity-0" href="https://www.google.com/maps/place/Bryan+Symphony+Orchestra/@36.1647919,-85.5088741,19.29z/data=!4m6!3m5!1s0x88672210923c00f7:0x1573bd3d321ebae3!8m2!3d36.1647414!4d-85.508706!16s%2Fg%2F1tp_73tt?entry=ttu&g_ep=EgoyMDI1MTExMS4wIKXMDSoASAFQAw%3D%3D">123 W. Broad Street, Suite 4, Cookeville, TN, 38501</a>
     </div>
-    <div class="m-3">
+    <div class="m-3 flex-item">
       <p class="text-light text-center fw-bold"><i class="bi bi-telephone"></i> Phone</p>
       <p class="text-light text-center m-0 fs-5">(931) 525-2633</p>
     </div>
-    <div class="m-3">
+    <div class="m-3 flex-item text-center">
       <p class="text-light text-center fw-bold"><i class="bi bi-envelope"></i> Email</p>
-      <p class="text-light text-center fs-5">contact@bryansymphony.org</p>
+      <a class="text-light text-center fs-5 link-offset-2" href="mailto:contact@bryansymphony.org">contact@bryansymphony.org</a>
     </div>
-    <div class="m-3">
+    <div class="m-3 flex-item">
       <p class="text-light text-center fw-bold"><i class="bi bi-hand-thumbs-up"></i> Connect</p>
       <div class="d-flex justify-content-center">
-        <i class="bi bi-instagram text-light me-1"></i>
-        <i class="bi bi-facebook text-light"></i>
+        <a class="bi bi-instagram text-light me-1" href="https://www.instagram.com/bryansymphonyorchestra/?hl=en"></a>
+        <a class="bi bi-facebook text-light ms-1" href="https://www.facebook.com/Bryan.Symphony.Orchestra/"></a>
       </div>
     </div>
-    <div class="m-3">
-      <p class="text-light text-center fw-bold"><i class="bi bi-person"></i> Administration</p>
+    <div class="m-3 flex-item">
+      <p class="text-light text-center fw-bold mb-1"><i class="bi bi-person"></i> Administration</p>
       <div class="d-flex justify-content-center">
         @if (authService.isAdmin()) {
           <button class="btn btn-primary" type="button" (click)="onLogout()">Log Out</button>

@@ -50,8 +50,4 @@ export class EventService {
   updateEvent(event: Event): Observable<any> {
     return this.http.put<any>(this.allEventsUrl, event);
   }
-
-  // getSubscriptionEvents(): Observable<Event[]> {
-
-  // }
 }

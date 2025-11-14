@@ -30,14 +30,13 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="history-and-mission">Our History and Mission</a></li>
             <li><a class="dropdown-item" href="music-director">Music Director</a></li>
-            <li><a class="dropdown-item" href="personnel">Personnel</a></li>
+            <li><a class="dropdown-item" href="staff-and-musicians">Staff and Musicians</a></li>
             <li><a class="dropdown-item" href="career-opportunities">Career Opportunities</a></li>
             <li><a class="dropdown-item" href="board-of-directors">Board of Directors</a></li>
             <li><a class="dropdown-item" href="season-sponsors">Our Season Sponsors</a></li>
             <li><a class="dropdown-item" href="concert-hall">Concert Hall</a></li>
           </ul>
         </li>
-        <!-- Add a check here to make sure admin is logged in before displaying the 'Administration' tab-->
         @if (authService.isAdmin()) {
           <li class="nav-item mx-4">
             <a class="nav-link" href="admin" routerLink="admin">Administration</a>

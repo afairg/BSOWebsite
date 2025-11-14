@@ -1,1 +1,16 @@
-<p>music-director works!</p>
+<div class="personnel-container">
+    @if (people()[0]) {
+        <app-person-component
+            [isHero]="true"
+            [fullName]="people()[0] ? people()[0].fullname : ''"
+            [title]="people()[0] ? people()[0]!.title : ''"
+            [description]="people()[0] ? people()[0]!.description : ''"
+            [email]="people()[0] ? people()[0]!.email : ''"
+            [phone]="people()[0] ? people()[0]!.phone : null"
+            [imageUrl]="people()[0] ? people()[0]!.imageurl : ''">
+        </app-person-component>
+    } @else if (admin()) {
+        <p class="fs-2 text-center text-light m-5">No music director found - Create a Personnel item with the field "Title" set to "Music Director"</p>
+    }
+    
+</div>
