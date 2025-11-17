@@ -1,0 +1,12 @@
+.header-container {
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.sponsors-container {
+    justify-content: center;
+    background-color: rgba(26, 26, 26, 1);
+    gap: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 4rem;
+}

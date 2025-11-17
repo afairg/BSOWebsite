@@ -1,1 +1,11 @@
-<p>season-sponsors works!</p>
+<div class="header-container">
+    <h1 class="text-center text-light mb-0 p-4">Our Season Sponsors</h1>
+</div>
+<div class="sponsors-container">
+    @for (sponsor of sponsors(); track sponsor.name) {
+        <app-sponsor-component class="m-3"
+        [name]="sponsor.name"
+        [imageUrl]="sponsor.imageurl"
+        [sortid]="sponsor.sortid"></app-sponsor-component>
+    }
+</div>

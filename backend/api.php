@@ -358,6 +358,131 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/ba
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backend/api/season-sponsors') {
+    $result = $conn->query("SELECT * FROM season_sponsors ORDER BY sortid, name ASC");
+    $data = $result->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($data);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/backend/api/season-sponsors') !== false) {
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($input['name']) || !isset($input['sortid'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid input. Missing one or more required input fields."]);
+        exit;
+    }
+
+    $name = $input['name'];
+    $imageurl = $input['imageurl'];
+    $sortid = $input['sortid'];
+
+    $stmt = $conn->prepare("INSERT INTO season_sponsors (name, imageurl, sortid) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $name, $imageurl, $sortid);
+
+    if ($stmt->execute()) {
+        http_response_code(201);
+        echo json_encode(["message" => "Season sponsor added successfully."]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to add season sponsor."]);
+    }
+
+    $stmt->close();
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/backend/api/season-sponsors') !== false) {
+    error_log("RAW: " . file_get_contents('php://input'));
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($input['name'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid input. One or more required fields are missing."]);
+        exit;
+    }
+
+    $name = $input['name'];
+    $imageurl = $input['imageurl'];
+    $sortid = $input['sortid'];
+
+    $stmt = $conn->prepare("UPDATE season_sponsors SET imageurl = ?, sortid = ? WHERE name = ?");
+    $stmt->bind_param("sis", $imageurl, $sortid, $name);
+
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            http_response_code(200);
+            echo json_encode(["message" => "Season sponsor updated successfully."]);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "Season sponsor not found."]);
+        }
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to update season sponsor."]);
+    }
+
+    $stmt->close();
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && strpos($_SERVER['REQUEST_URI'], '/backend/api/season-sponsors') !== false) {
+    // Parse the query string to get the title
+    parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $queryParams);
+
+    if (!isset($queryParams['name'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Missing 'name' parameter"]);
+        exit;
+    }
+
+    $name = $queryParams['name'];
+
+    // Step 1: Retrieve the image URL for the sponsor
+    $stmt = $conn->prepare("SELECT imageurl FROM season_sponsors WHERE name = ?");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        http_response_code(404);
+        echo json_encode(["error" => "Season sponsor not found."]);
+        $stmt->close();
+        exit;
+    }
+
+    $sponsor = $result->fetch_assoc();
+    $imageUrl = $sponsor['imageurl'];
+    $stmt->close();
+
+    // Step 2: Delete the person from the database
+    $stmt = $conn->prepare("DELETE FROM season_sponsors WHERE name = ?");
+    $stmt->bind_param("s", $name);
+
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            // Step 3: Delete the associated image file from the server
+            $imagePath = __DIR__ . '/../media/' . basename($imageUrl);
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Delete the file
+            }
+
+            http_response_code(200);
+            echo json_encode(["message" => "Sponsor and associated image deleted successfully."]);
+        } else {
+            http_response_code(404);
+            echo json_encode(["error" => "Season sponsor not found."]);
+        }
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to delete sponsor."]);
+    }
+
+    $stmt->close();
+    exit;
+}
+
 // Default response for undefined routes
 http_response_code(404);
 echo json_encode(["error" => "Route not found"]);

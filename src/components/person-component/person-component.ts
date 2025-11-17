@@ -16,8 +16,4 @@ export class PersonComponent {
   public phone = input<number | null>(null);
   public imageUrl = input<string>('');
   public sortId = input<number>(100);
-
-  ngOnInit() {
-    console.log(this);
-  }
 }
