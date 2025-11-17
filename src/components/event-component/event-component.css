@@ -1,3 +1,9 @@
+.standard-event:hover {
+    transform: scale(1.03);
+    transition: transform 0.2s linear;
+    cursor: pointer;
+}
+
 .hero-container {
     display: flex;
     justify-content: space-between;

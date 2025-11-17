@@ -1,5 +1,6 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-component',
@@ -16,9 +17,9 @@ export class EventComponent {
   public date = input<string>('');
   public imageUrl = input<string>('');
 
-  ngOnInit() {
-    console.log('imageUrl:', this.imageUrl());
-    console.log('title', this.title());
-    console.log('type', this.type());
+  constructor(private router: Router) {}
+
+  navigateToDetail(title: string) {
+    this.router.navigate(['/events', title]);
   }
 }

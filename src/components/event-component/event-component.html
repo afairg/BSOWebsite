@@ -1,5 +1,5 @@
 @if (!isHero()) {
-    <div class="card text-center" style="width: 20rem;">
+    <div class="card text-center standard-event" style="width: 20rem;" (click)="navigateToDetail(title())">
         <img [src]="imageUrl()" class="card-img-top" alt="...">
         <div class="card-body justify-content-center align-items-center d-flex flex-column">
             <h5 class="card-title">{{title()}}</h5>
@@ -26,6 +26,7 @@
             <h3 class="text-center">{{date() | date: 'MMMM d, h:mm a'}}</h3>
             <hr/>
             <h4 class="text-center">{{location()}}</h4>
+            <a class="card-text mt-2" type="button" (click)="navigateToDetail(title())">More Info</a>
             @if (type() === 'Education') {
                 <button class="btn btn-primary btn-lg mt-4 disabled">Free Admission</button>
             } @else {

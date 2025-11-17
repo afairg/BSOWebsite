@@ -13,6 +13,7 @@ import { CareerOpportunities } from '../components/career-opportunities/career-o
 import { BoardOfDirectors } from '../components/board-of-directors/board-of-directors';
 import { SeasonSponsors } from '../components/season-sponsors/season-sponsors';
 import { ConcertHall } from '../components/concert-hall/concert-hall';
+import { EventDetailComponent } from '../components/event-detail-component/event-detail-component';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -28,5 +29,6 @@ export const routes: Routes = [
     { path: 'career-opportunities', component: CareerOpportunities },
     { path: 'board-of-directors', component: BoardOfDirectors },
     { path: 'season-sponsors', component: SeasonSponsors },
-    { path: 'concert-hall', component: ConcertHall }
+    { path: 'concert-hall', component: ConcertHall },
+    { path: 'events/:title', component: EventDetailComponent }
 ];
