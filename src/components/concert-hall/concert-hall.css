@@ -1,0 +1,61 @@
+:host {
+    width: 100%;
+}
+
+.hall-container {
+    background-image: url('https://bso.swollenhippo.com/media/7e00ea_13997636777c452b823e5478557121ec~mv2_d_1920_1278_s_2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 700px;
+}
+
+.hall-text-container {
+    flex-basis: 50%;
+    margin-left: auto;
+    overflow-y: scroll;
+    max-height: 90%;
+    @media (max-width: 768px) {
+        flex-basis: 100%;
+    }
+}
+
+.text-box {
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 2rem;
+    margin: 2rem;
+    @media (max-width: 768px) {
+        margin: 1rem;
+    }
+}
+
+.image-container {
+    flex-basis: 50%;
+}
+
+.break {
+    height: 50px;
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.building-container {
+    background-image: url('https://bso.swollenhippo.com/media/7e00ea_0afa25e9ba04497a9cd5b27c10f4bbe7~mv2_d_4320_3240_s_4_2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 700px;
+}
+
+.building-text-container {
+    flex-basis: 50%;
+    overflow-y: scroll;
+    max-height: 90%;
+    @media (max-width: 768px) {
+        flex-basis: 100%;
+    }
+}
