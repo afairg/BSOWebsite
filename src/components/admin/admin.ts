@@ -24,19 +24,25 @@ export class Admin {
     title: '',
     type: '',
     description: '',
+    detailed_description: '',
     date: '',
     time: '',
     location: '',
-    imageurl: ''
+    imageurl: '',
+    general_ticket_price: null,
+    senior_ticket_price: null
   };
   selectedEvent: Event = {
     title: '',
     type: '',
     description: '',
+    detailed_description: '',
     date: '',
     time: '',
     location: '',
-    imageurl: ''
+    imageurl: '',
+    general_ticket_price: null,
+    senior_ticket_price: null
   };
   newPersonnel: Personnel = {
     fullname: '',
@@ -170,7 +176,7 @@ export class Admin {
       error: (err) => {
         console.error('Failed to load sponsors');
       }
-    })
+    });
   }
 
   // Add a new item to the database

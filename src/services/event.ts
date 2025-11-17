@@ -6,10 +6,13 @@ export interface Event {
   title: string;
   type: string;
   description: string;
+  detailed_description: string;
   date: string;
   time: string;
   location: string;
   imageurl: string;
+  general_ticket_price: number | null;
+  senior_ticket_price: number | null;
 }
 
 @Injectable({

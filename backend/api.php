@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backen
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/backend/api/events') !== false) {
     $input = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl'])) {
+    if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl']) || !isset($input['detailed_description']) || !isset($input['general_ticket_price']) || !isset($input['senior_ticket_price'])) {
         http_response_code(400);
         echo json_encode(["error" => "Invalid input. All fields are required."]);
         exit;
@@ -53,11 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
     $type = $input['type'];
     $date = $input['date'];
     $description = $input['description'];
+    $detailed_description = $input['detailed_description'];
     $location = $input['location'];
     $imageurl = $input['imageurl'];
+    $general_ticket_price = $input['general_ticket_price'];
+    $senior_ticket_price = $input['senior_ticket_price'];
 
-    $stmt = $conn->prepare("INSERT INTO events (title, type, date, description, location, imageurl) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $title, $type, $date, $description, $location, $imageurl);
+    $stmt = $conn->prepare("INSERT INTO events (title, type, date, description, detailed_description, location, imageurl, general_ticket_price, senior_ticket_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+    $stmt->bind_param("sssssssdd", $title, $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price);
 
     if ($stmt->execute()) {
         http_response_code(201);
@@ -98,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/backend/api/events') !== false) {
     $input = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl'])) {
+    if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl']) || !isset($input['detailed_description']) || !isset($input['general_ticket_price']) || !isset($input['senior_ticket_price'])) {
         http_response_code(400);
         echo json_encode(["error" => "Invalid input. All fields are required."]);
         exit;
@@ -108,11 +111,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/ba
     $type = $input['type'];
     $date = $input['date']; // Ensure this includes both date and time
     $description = $input['description'];
+    $detailed_description = $input['detailed_description'];
     $location = $input['location'];
     $imageurl = $input['imageurl'];
+    $general_ticket_price = $input['general_ticket_price'];
+    $senior_ticket_price = $input['senior_ticket_price'];
 
-    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, location = ?, imageurl = ? WHERE title = ?");
-    $stmt->bind_param("ssssss", $type, $date, $description, $location, $imageurl, $title);
+    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, detailed_description = ?, location = ?, imageurl = ?, general_ticket_price = ?, senior_ticket_price = ? WHERE title = ?");
+    $stmt->bind_param("ssssssdds", $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price, $title);
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {

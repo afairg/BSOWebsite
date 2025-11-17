@@ -3,3 +3,11 @@
   color: #fff !important;
   border-color: rgba(26, 26, 26, 0.1) rgba(26, 26, 26, 0.1) #0d6efd;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 0;
+}

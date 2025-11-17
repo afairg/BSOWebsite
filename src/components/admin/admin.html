@@ -35,7 +35,6 @@
                                     <div class="mb-3">
                                         <label for="eventType" class="form-label">Event Type</label>
                                         <select class="form-select" aria-label="Event type dropdown" id="eventType" [(ngModel)]="newEvent.type" name="type">
-                                            <option selected [ngValue]="null">Select Event Type</option>
                                             <option value="Standard">Standard</option>
                                             <option value="Subscription">Subscription</option>
                                             <option value="Education">Education</option>
@@ -50,8 +49,14 @@
                                         <input type="time" class="form-control" id="eventTime" [(ngModel)]="newEvent.time" name="time">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="eventDescription" class="form-label">Description</label>
+                                        <label for="eventDescription" class="form-label">Summary</label>
                                         <textarea class="form-control" id="eventDescription" [(ngModel)]="newEvent.description" name="description"></textarea>
+                                        <p>This will be displayed on event cards on the home screen.</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="eventDetailedDescription" class="form-label">Detailed Description</label>
+                                        <textarea class="form-control" id="eventDetailedDescription" [(ngModel)]="newEvent.detailed_description" name="detailedDescription"></textarea>
+                                        <p>This will be displayed on the event detail page after clicking on an event.</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="eventLocation" class="form-label">Location</label>
@@ -60,6 +65,16 @@
                                     <div class="mb-3">
                                         <label for="eventImageUrl" class="form-label">Event Image</label>
                                         <input type="file" class="form-control" id="eventImageUrl" (change)="onFileSelected($event)">
+                                    </div>
+                                    <label for="eventGeneralPrice" class="form-label">General Admission Ticket Price</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input type="number" class="form-control" id="eventGeneralPrice" placeholder="0.00" aria-label="General Admission Ticket Price" [(ngModel)]="newEvent.general_ticket_price" aria-describedby="basic-addon1" name="generalPrice">
+                                    </div>
+                                    <label for="eventSeniorPrice" class="form-label">Senior Ticket Price</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input type="number" class="form-control" id="eventSeniorPrice" placeholder="0.00" aria-label="Senior Ticket Price" [(ngModel)]="newEvent.senior_ticket_price" aria-describedby="basic-addon1" name="seniorPrice">
                                     </div>
                                 </form>
                             </div>
@@ -103,12 +118,27 @@
                                         <textarea class="form-control" id="editEventDescription" rows="3" [(ngModel)]="selectedEvent.description" name="description" placeholder="{{selectedEvent.description}}"></textarea>
                                     </div>
                                     <div class="mb-3">
+                                        <label for="editEventDetailedDescription" class="form-label">Detailed Description</label>
+                                        <textarea class="form-control" id="eventDetailedDescription" [(ngModel)]="selectedEvent.detailed_description" name="detailedDescription" placeholder="{{selectedEvent.detailed_description}}"></textarea>
+                                        <p>This will be displayed on the event detail page after clicking on an event.</p>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="editEventLocation" class="form-label">Location</label>
                                         <input type="text" class="form-control" id="editEventLocation" [(ngModel)]="selectedEvent.location" name="location" placeholder="{{selectedEvent.location}}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="editImageUrl" class="form-label">Event Image URL</label>
                                         <input type="text" class="form-control" id="editImageUrl" [(ngModel)]="selectedEvent.imageurl" name="imageurl" placeholder="{{selectedEvent.imageurl}}">
+                                    </div>
+                                    <label for="editEventGeneralPrice" class="form-label">General Admission Ticket Price</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input type="number" class="form-control" id="editEventGeneralPrice" placeholder="0.00" aria-label="General Admission Ticket Price" [(ngModel)]="selectedEvent.general_ticket_price" aria-describedby="basic-addon1" name="generalPrice">
+                                    </div>
+                                    <label for="editEventSeniorPrice" class="form-label">Senior Ticket Price</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                        <input type="number" class="form-control" id="editEventSeniorPrice" placeholder="0.00" aria-label="Senior Ticket Price" [(ngModel)]="selectedEvent.senior_ticket_price" aria-describedby="basic-addon1" name="seniorPrice">
                                     </div>
                                 </form>
                             </div>
@@ -125,10 +155,13 @@
                             <tr>
                                 <th scope="col">Title</th>
                                 <th scope="col">Event Type</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Summary</th>
+                                <th scope="col">Detailed Description</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Location</th>
                                 <th scope="col">Image URL</th>
+                                <th scope="col">GA Price</th>
+                                <th scope="col">Senior Price</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -137,10 +170,13 @@
                                 <tr>
                                     <td>{{event.title}}</td>
                                     <td>{{event.type}}</td>
-                                    <td>{{event.description}}</td>
+                                    <td class="truncate">{{event.description}}</td>
+                                    <td class="truncate">{{event.detailed_description}}</td>
                                     <td>{{event.date }}, {{event.time}}</td>
                                     <td>{{event.location}}</td>
-                                    <td>{{event.imageurl}}</td>
+                                    <td class="truncate">{{event.imageurl}}</td>
+                                    <td>{{event.general_ticket_price}}</td>
+                                    <td>{{event.senior_ticket_price}}</td>
                                     <td>
                                         <div class="d-flex column-gap-2">
                                             <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#editEventModal" (click)="editEvent(event)">Edit</button>
