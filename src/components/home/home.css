@@ -10,6 +10,24 @@
     background-color: rgb(26, 26, 26);
 }
 
+.form-container {
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    @media (max-width: 768px) {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+}
+
+.form-box {
+    margin: 2rem;
+}
+
+.submit-button {
+    width: 100%;
+}
+
 .break {
     flex-basis: 100%;
     height: 0;
