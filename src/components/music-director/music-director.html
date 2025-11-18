@@ -6,7 +6,7 @@
             [title]="people()[0] ? people()[0]!.title : ''"
             [description]="people()[0] ? people()[0]!.description : ''"
             [email]="people()[0] ? people()[0]!.email : ''"
-            [phone]="people()[0] ? people()[0]!.phone : null"
+            [phone]="people()[0] ? people()[0]!.phone : ''"
             [imageUrl]="people()[0] ? people()[0]!.imageurl : ''">
         </app-person-component>
     } @else if (admin()) {

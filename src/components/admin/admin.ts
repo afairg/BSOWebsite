@@ -50,7 +50,7 @@ export class Admin {
     title: '',
     description: '',
     email: '',
-    phone: null,
+    phone: '',
     imageurl: '',
     sortid: null
   };
@@ -60,7 +60,7 @@ export class Admin {
     title: '',
     description: '',
     email: '',
-    phone: null,
+    phone: '',
     imageurl: '',
     sortid: null
   };

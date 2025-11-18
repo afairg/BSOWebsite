@@ -6,7 +6,7 @@
             <p class="card-text">{{title()}}</p>
             <p class="card-text">{{description()}}</p>
             <a href="mailto:{{email()}}" target="_blank" class="card-text">{{email()}}</a>
-            <p class="card-text">{{phone()}}</p>
+            <p class="card-text">{{formatPhone(phone())}}</p>
         </div>
     </div>
 } @else {
@@ -21,8 +21,8 @@
             <p class="text-light">{{title()}}</p>
             <p class="text-light text-center hero-description">{{description()}}</p>
             <hr/>
-            <a href="mailto:{{email()}}">{{email()}}</a>
-            <h4>{{phone()}}</h4>
+            <a class="text-light text-center fs-4 m-4" href="mailto:{{email()}}">{{email()}}</a>
+            <h4 class="text-light text-center">{{formatPhone(phone())}}</h4>
         </div>
     </div>
 }

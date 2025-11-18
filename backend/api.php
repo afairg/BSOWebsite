@@ -278,7 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
     $sortid = $input['sortid'];
 
     $stmt = $conn->prepare("INSERT INTO personnel (fullname, type, title, description, email, phone, imageurl, sortid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssisi", $fullname, $type, $title, $description, $email, $phone, $imageurl, $sortid);
+    $stmt->bind_param("sssssssi", $fullname, $type, $title, $description, $email, $phone, $imageurl, $sortid);
 
     if ($stmt->execute()) {
         http_response_code(201);
@@ -369,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/ba
     $sortid = $input['sortid'];
 
     $stmt = $conn->prepare("UPDATE personnel SET type = ?, title = ?, description = ?, email = ?, phone = ?, imageurl = ?, sortid = ? WHERE fullname = ?");
-    $stmt->bind_param("ssssisis", $type, $title, $description, $email, $phone, $imageurl, $sortid, $fullname);
+    $stmt->bind_param("ssssssis", $type, $title, $description, $email, $phone, $imageurl, $sortid, $fullname);
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {

@@ -8,7 +8,7 @@ export interface Personnel {
   title: string;
   description: string;
   email: string;
-  phone: number | null;
+  phone: string;
   imageurl: string;
   sortid: number | null;
 }

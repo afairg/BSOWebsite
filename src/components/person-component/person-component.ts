@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber';
 
 @Component({
   selector: 'app-person-component',
@@ -13,7 +14,22 @@ export class PersonComponent {
   public title = input<string>('');
   public description = input<string>('');
   public email = input<string>('');
-  public phone = input<number | null>(null);
+  public phone = input<string>('');
   public imageUrl = input<string>('');
   public sortId = input<number>(100);
+
+  phoneUtil = PhoneNumberUtil.getInstance();
+  strPhone = this.phone()?.toString();
+
+  formatPhone(raw: string | null | undefined): string {
+    if (!raw) return '';
+
+    try {
+      const parsed = this.phoneUtil.parseAndKeepRawInput(raw, 'US');
+      return this.phoneUtil.format(parsed, PhoneNumberFormat.NATIONAL);
+    } catch (e) {
+      console.warn('Phone format error:', e);
+      return raw;
+    }
+  }
 }
