@@ -1,0 +1,50 @@
+.header-container {
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    object-fit: contain;
+}
+
+.image-container img {
+    width: 40%;
+    height: auto;
+    @media (max-width: 768px) {
+        width: 90%;
+    }
+}
+
+.info-container {
+    margin-left: 20%;
+    margin-right: 20%;
+    @media (max-width: 768px) {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+table {
+    width: 50%;
+}
+
+.form-select {
+    width: 120px;
+}
+
+.checkout {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    text-align: center;
+}

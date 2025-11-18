@@ -29,8 +29,8 @@ export class Admin {
     time: '',
     location: '',
     imageurl: '',
-    general_ticket_price: null,
-    senior_ticket_price: null
+    general_ticket_price: 0,
+    senior_ticket_price: 0
   };
   selectedEvent: Event = {
     title: '',
@@ -41,8 +41,8 @@ export class Admin {
     time: '',
     location: '',
     imageurl: '',
-    general_ticket_price: null,
-    senior_ticket_price: null
+    general_ticket_price: 0,
+    senior_ticket_price: 0
   };
   newPersonnel: Personnel = {
     fullname: '',

@@ -9,7 +9,7 @@
             @if (type() === 'Education') {
                 <button class="btn btn-primary disabled">Free Admission</button>
             } @else {
-                <a href="#" class="btn btn-primary">Buy Tickets</a>
+                <button class="btn btn-primary" type="button" (click)="navigateToDetail(title())">Buy Tickets</button>
             }
         </div>
     </div>
@@ -30,7 +30,7 @@
             @if (type() === 'Education') {
                 <button class="btn btn-primary btn-lg mt-4 disabled">Free Admission</button>
             } @else {
-                <button class="btn btn-primary btn-lg mt-4" type="submit">Buy Tickets</button>
+                <button class="btn btn-primary btn-lg mt-4" type="button" (click)="navigateToDetail(title())">Buy Tickets</button>
             }
         </div>
     </div>

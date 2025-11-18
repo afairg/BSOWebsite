@@ -1,6 +1,6 @@
 .standard-event:hover {
     transform: scale(1.03);
-    transition: transform 0.2s linear;
+    transition: transform 0.1s linear;
     cursor: pointer;
 }
 

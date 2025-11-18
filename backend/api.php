@@ -25,6 +25,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backen
     exit;
 }
 
+// GET an event by its title
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && strpos($_SERVER['REQUEST_URI'], '/backend/api/events') !== false) {
+
+    // Check if a title was provided in the query string
+    parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $queryParams);
+
+    if (!isset($queryParams['title'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Missing 'title' parameter"]);
+        exit;
+    }
+
+    $title = $queryParams['title'];
+    $stmt = $conn->prepare("SELECT * FROM events WHERE title = ? LIMIT 1");
+    $stmt->bind_param("s", $title);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $event = $result->fetch_assoc();
+
+    echo json_encode($event ? $event : []);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/backend/api/subscription-events') {
     $result = $conn->query("SELECT * FROM events WHERE type = 'Subscription' ORDER BY date ASC");
     $data = $result->fetch_all(MYSQLI_ASSOC);

@@ -1,1 +1,61 @@
-<p>event-detail-component works!</p>
+<div class="header-container pb-4">
+    <h1 class="text-center text-light mb-0 p-4">{{event().title}}</h1>
+    <div class="image-container">
+        <img src="{{event().imageurl}}" alt="event().title Image">
+    </div>
+    <div class="info-container">
+        <h2 class="text-center text-light m-5">{{event().date | date: 'MMMM d, h:mm a'}}</h2>
+        <h4 class="text-center text-light m-4">{{event().location}}</h4>
+        <p class="text-center text-light m-2 details">{{event().detailed_description}}</p>
+    </div>
+    @if (event().type !== 'Education') {
+        <h4 class="text-center text-light mt-4">Tickets</h4>
+        <div class="ticket-container mt-1">
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col" class="text-end">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-dark">
+                        <td>General Admission</td>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <td>${{event().general_ticket_price}}</td>
+                            <select class="form-select" id="numGeneralTickets" [(ngModel)]="numGeneralTickets">
+                                @for (num of numbers; track num) {
+                                    <option value="{{num}}">{{num}}</option>
+                                }
+                            </select>
+                        </div>
+                    </tr>
+                    @if (event().senior_ticket_price > 0) {
+                        <tr class="table-dark">
+                            <td>Senior Tickets</td>
+                            <div class="d-flex align-items-center justify-content-end">
+                                <td>${{event().senior_ticket_price}}</td>
+                                <select class="form-select" id="numSeniorTickets" [(ngModel)]="numSeniorTickets">
+                                    @for (num of numbers; track num) {
+                                        <option value="{{num}}">{{num}}</option>
+                                    }
+                                </select>
+                            </div>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <div class="checkout">
+                                <p class="fs-3 text-light m-0 px-4">Total: ${{ totalPrice | number: '1.2-2' }}</p>
+                                <button class="btn btn-success">Checkout</button>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</div>

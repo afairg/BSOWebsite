@@ -114,6 +114,10 @@
                                         <input type="date" class="form-control" id="editEventDate" [(ngModel)]="selectedEvent.date" name="date" placeholder="{{selectedEvent.date}}">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="editEventTime" class="form-label">Time</label>
+                                        <input type="time" class="form-control" id="editEventTime" [(ngModel)]="selectedEvent.time" name="time">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="editEventDescription" class="form-label">Description</label>
                                         <textarea class="form-control" id="editEventDescription" rows="3" [(ngModel)]="selectedEvent.description" name="description" placeholder="{{selectedEvent.description}}"></textarea>
                                     </div>
@@ -160,7 +164,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Location</th>
                                 <th scope="col">Image URL</th>
-                                <th scope="col">GA Price</th>
+                                <th scope="col">General Admission Price</th>
                                 <th scope="col">Senior Price</th>
                                 <th scope="col">Actions</th>
                             </tr>

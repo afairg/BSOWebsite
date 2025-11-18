@@ -11,8 +11,8 @@ export interface Event {
   time: string;
   location: string;
   imageurl: string;
-  general_ticket_price: number | null;
-  senior_ticket_price: number | null;
+  general_ticket_price: number;
+  senior_ticket_price: number;
 }
 
 @Injectable({
@@ -27,6 +27,10 @@ export class EventService {
 
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.allEventsUrl);
+  }
+
+  getEventByTitle(eventTitle: string): Observable<Event> {
+    return this.http.get<Event>(`https://bso.swollenhippo.com/backend/api/events?title=${encodeURIComponent(eventTitle)}`)
   }
 
   getSubscriptionEvents(): Observable<Event[]> {
