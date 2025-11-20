@@ -2,7 +2,35 @@
   <app-bso-nav-bar></app-bso-nav-bar>
   
   <router-outlet />
-  
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="adminLoginModal" aria-hidden="true" #loginModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+        </div>
+
+        <div class="modal-body">
+          <form (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input id="username" type="text" class="form-control" [(ngModel)]="username" name="username" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" type="password" class="form-control" [(ngModel)]="password" name="password" required />
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary me-2" data-bs-dismiss="modal">Login</button>
+              <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Footer Section -->
   <div class="footer-container d-flex justify-content-around bg-primary">
     <div class="m-3 flex-item text-center">
@@ -30,7 +58,7 @@
         @if (authService.isAdmin()) {
           <button class="btn btn-primary" type="button" (click)="onLogout()">Log Out</button>
         } @else {
-          <button class="btn btn-primary" type="button" (click)="openLoginModal()">Log In</button>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#loginModal" (click)="onLogin()">Log In</button>
         }
       </div>
     </div>

@@ -1,14 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BsoNavBar } from "../components/bso-nav-bar/bso-nav-bar";
-import { Login } from '../components/admin/login/login';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Auth } from '../services/auth';
+import { FormsModule } from '@angular/forms';
 import 'bootswatch/dist/lux/bootstrap.min.css'; // Importing Bootswatch Lux theme CSS}
+import { AdminLogin } from '../services/admin-login';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BsoNavBar, NgbModule],
+  imports: [RouterOutlet, BsoNavBar, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -16,28 +16,38 @@ export class App {
   protected readonly title = signal('bso-website');
 
   admin = signal<boolean>(false);
+  successful = output<boolean>();
+  username = '';
+  password = '';
+  errorMessage = '';
 
-  constructor(private modalService: NgbModal, public authService: Auth) {}
-  
-  openLoginModal() {
-    const modalRef = this.modalService.open(Login, { centered: true });
-    modalRef.componentInstance.successful.subscribe((isSuccessful: boolean) => {
+  constructor(public authService: Auth, private loginService: AdminLogin) {}
+
+  onLogin() {
+    this.successful.subscribe((isSuccessful: boolean) => {
       if (isSuccessful) {
         this.authService.loginAsAdmin();
-        console.log('Admin logged in successfully');
-        this.modalService.dismissAll();
-      } else {
-        console.log('Login failed or canceled');
       }
     })
-    modalRef.result.then(
-      (result) => {
-        console.log('Modal closed with:', result);
+  }
+  
+  login() {
+    this.loginService.login(this.username, this.password).subscribe({
+      next: (response: any) => {
+        if (response.message === 'Login successful.') {
+          this.successful.emit(true);
+        } else {
+          this.successful.emit(false);
+        }
       },
-      (reason) => {
-        console.log('Modal dismissed:', reason);
+      error: (err) => {
+        this.errorMessage = err.error.error;
       }
-    );
+    });
+  }
+
+  onCancel() {
+    this.successful.emit(false);
   }
 
   onLogout() {
