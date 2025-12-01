@@ -29,3 +29,12 @@
 .submit-button {
     width: 100%;
 }
+
+app-magazine-component {
+    flex-basis: 100%;
+}
+
+.magazine-container {
+    flex-wrap: wrap;
+    justify-content: center;
+}

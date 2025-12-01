@@ -1,0 +1,11 @@
+@if (magazineUrl()) {
+    <iframe
+        [src]="magazineUrl() | safeUrl"
+        width="80%"
+        height="900px"
+        frameborder="0"
+        title="Season Magazine">
+    </iframe>
+} @else {
+    <h2 class="text-center">No magazine available to</h2>
+}

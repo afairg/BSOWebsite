@@ -505,6 +505,8 @@
                 </nav>
             </div>
         </div>
+        <label for="seasonMagazineUpload" class="form-label mt-4 fs-4">Season Magazine Upload</label>
+        <input type="file" class="form-control" id="seasonMagazineUpload" (change)="onSeasonMagazineSelected($event)">
     </div>
 } @else {
     <h2 class="text-center m-5">You do not have permission to view this page</h2>

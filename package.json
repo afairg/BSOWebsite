@@ -35,6 +35,7 @@
     "bootswatch": "^5.3.8",
     "cors": "^2.8.5",
     "google-libphonenumber": "^3.2.43",
+    "ngx-paypal": "^11.0.0",
     "rxjs": "~7.8.0",
     "sqlite3": "^5.1.7",
     "sweetalert2": "^11.26.3",

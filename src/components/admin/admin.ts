@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { EventService, Event } from '../../services/event';
 import { PersonnelService, Personnel } from '../../services/personnel';
 import { SponsorService, Sponsor } from '../../services/sponsor';
+import { MagazineService, Magazine } from '../../services/magazine';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/auth';
 import Swal from 'sweetalert2';
@@ -74,6 +75,9 @@ export class Admin {
     imageurl: '',
     sortid: null
   };
+  seasonMagazineFile: Magazine = {
+    file_url: ''
+  };
 
   // Computed signal for paginated events
   paginatedEvents = computed(() => {
@@ -135,12 +139,61 @@ export class Admin {
     return Array.from({ length: total }, (_, i) => i + 1);
   })
 
-  constructor(private eventService: EventService, public authService: Auth, private personnelService: PersonnelService, private sponsorService: SponsorService) {}
+  constructor(private eventService: EventService, public authService: Auth, private personnelService: PersonnelService, private sponsorService: SponsorService, private magazineService: MagazineService) {}
 
   ngOnInit() {
     this.loadEvents();
     this.loadPersonnel();
     this.loadSponsors();
+  }
+
+  onSeasonMagazineSelected(event: any) {
+    const file = event.target.files[0];
+
+    if (!file || file.type !== 'application/pdf') {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please select a valid PDF file for the season magazine.',
+        icon: 'error',
+        confirmButtonText: 'Close'
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log('Uploading file:', file);
+
+    this.eventService.uploadImage(formData).subscribe({
+      next: (response: any) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Season magazine uploaded successfully.',
+          icon: 'success',
+          timer: 2000
+        });
+        console.log('Season magazine uploaded:', response.url);
+        this.seasonMagazineFile.file_url = response.url;
+        this.magazineService.addMagazineUrl(this.seasonMagazineFile).subscribe({
+          next: (nestedResponse: any) => {
+            console.log('Season magazine URL added to database:', nestedResponse);
+          },
+          error: (err) => {
+            console.error('Failed to add season magazine URL to database:', err);
+          }
+        })
+      },
+      error: (err) => {
+        console.error('Season magazine upload failed:', err);
+        Swal.fire({
+          title: 'Error!',
+          icon: 'error',
+          text: 'Season magazine upload failed. Please try again.',
+          confirmButtonText: 'Close'
+        });
+      }
+    });
   }
 
   // Fetch all database items from the server

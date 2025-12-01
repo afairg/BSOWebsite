@@ -98,18 +98,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
     exit;
 }
 
-// Handle image uploads when needed
+// Handle image and pdf uploads when needed
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/backend/api/upload-image') !== false) {
-    if (!isset($_FILES['image'])) {
+    if (!isset($_FILES['file'])) {
+        error_log('$_FILES: ' . print_r($_FILES, true));
         http_response_code(400);
         echo json_encode(["error" => "No file uploaded"]);
         exit;
     }
 
-    $file = $_FILES['image'];
-    $uploadDir = __DIR__ . '/../media/'; // adjust path to point to your /uploads directory
+    $file = $_FILES['file'];
+    $allowedTypes = ['image/png', 'image/jpeg', 'application/pdf'];
+    $uploadDir = __DIR__ . '/../media/'; // adjust path to point to /media directory
     $fileName = uniqid() . '-' . basename($file['name']);
     $targetPath = $uploadDir . $fileName;
+
+    if (!in_array($file['type'], $allowedTypes)) {
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid file type"]);
+        exit;
+    }
 
     if (move_uploaded_file($file['tmp_name'], $targetPath)) {
         $fileUrl = "https://bso.swollenhippo.com/media/" . $fileName;
@@ -507,6 +515,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && strpos($_SERVER['REQUEST_URI'], '
     } else {
         http_response_code(500);
         echo json_encode(["error" => "Failed to delete sponsor."]);
+    }
+
+    $stmt->close();
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && strpos($_SERVER['REQUEST_URI'], '/backend/api/get-magazine') !== false) {
+    // Example: Fetch the latest magazine URL from the database
+    $stmt = $conn->prepare("SELECT file_url FROM magazines ORDER BY id DESC LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $magazine = $result->fetch_assoc();
+        echo json_encode(["url" => $magazine['file_url']]);
+    } else {
+        http_response_code(404);
+        echo json_encode(["error" => "No magazine found."]);
+    }
+
+    $stmt->close();
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/backend/api/add-magazine') !== false) {
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($input['file_url'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid input. Missing required url."]);
+        exit;
+    }
+
+    $file_url = $input['file_url'];
+
+    $stmt = $conn->prepare("INSERT INTO magazines (file_url) VALUES (?)");
+    $stmt->bind_param("s", $file_url);
+
+    if ($stmt->execute()) {
+        http_response_code(201);
+        echo json_encode(["message" => "Season magazine added successfully."]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to add season magazine."]);
     }
 
     $stmt->close();
