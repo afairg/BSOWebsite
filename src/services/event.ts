@@ -13,6 +13,7 @@ export interface Event {
   imageurl: string;
   general_ticket_price: number;
   senior_ticket_price: number;
+  venue_link: string;
 }
 
 @Injectable({

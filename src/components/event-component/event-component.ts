@@ -16,6 +16,7 @@ export class EventComponent {
   public location = input<string>('');
   public date = input<string>('');
   public imageUrl = input<string>('');
+  public venueLink = input<string>('');
 
   constructor(private router: Router) {}
 

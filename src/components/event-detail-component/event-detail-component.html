@@ -8,7 +8,7 @@
         <h4 class="text-center text-light m-4">{{event().location}}</h4>
         <p class="text-center text-light m-2 details">{{event().detailed_description}}</p>
     </div>
-    @if (event().type !== 'Education') {
+    @if (event().type !== 'Education' && !event().venue_link) {
         <h4 class="text-center text-light mt-5">Tickets</h4>
         <p class="text-center text-light">Ticket price includes ticket processing and payment processing fees.</p>
         <div class="ticket-container mt-1">
@@ -57,6 +57,10 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
+    } @else if (event().venue_link !== '') {
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-success btn-lg mt-4" type="button" href="{{event().venue_link}}">Buy Tickets</a>
         </div>
     }
 </div>

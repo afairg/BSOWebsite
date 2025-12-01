@@ -70,11 +70,18 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                         <input type="number" class="form-control" id="eventGeneralPrice" placeholder="0.00" aria-label="General Admission Ticket Price" [(ngModel)]="newEvent.general_ticket_price" aria-describedby="basic-addon1" name="generalPrice">
+                                        <p class="text-sm mt-0">Leave blank for Education events or events with external ticketing!</p>
                                     </div>
                                     <label for="eventSeniorPrice" class="form-label">Senior Ticket Price</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                         <input type="number" class="form-control" id="eventSeniorPrice" placeholder="0.00" aria-label="Senior Ticket Price" [(ngModel)]="newEvent.senior_ticket_price" aria-describedby="basic-addon1" name="seniorPrice">
+                                        <p class="text-sm mt-0">Leave blank for Education events or events with external ticketing!</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="eventVenueLink" class="form-label">Venue Link (optional)</label>
+                                        <input type="text" class="form-control" id="eventVenueLink" [(ngModel)]="newEvent.venue_link" name="venueLink">
+                                        <p class="text-sm">If ticketing is handled by another venue, leave the ticket prices blank and provide the venue link here!</p>
                                     </div>
                                 </form>
                             </div>
@@ -144,6 +151,11 @@
                                         <span class="input-group-text" id="basic-addon1">$</span>
                                         <input type="number" class="form-control" id="editEventSeniorPrice" placeholder="0.00" aria-label="Senior Ticket Price" [(ngModel)]="selectedEvent.senior_ticket_price" aria-describedby="basic-addon1" name="seniorPrice">
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="editEventVenueLink" class="form-label">Venue Link (optional)</label>
+                                        <input type="text" class="form-control" id="editEventVenueLink" [(ngModel)]="selectedEvent.venue_link" name="venueLink" placeholder="{{selectedEvent.venue_link}}">
+                                    </div>
+                                    
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -166,6 +178,7 @@
                                 <th scope="col">Image URL</th>
                                 <th scope="col">General Admission Price</th>
                                 <th scope="col">Senior Price</th>
+                                <th scope="col">Venue Link</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -181,6 +194,7 @@
                                     <td class="truncate">{{event.imageurl}}</td>
                                     <td>{{event.general_ticket_price}}</td>
                                     <td>{{event.senior_ticket_price}}</td>
+                                    <td class="truncate">{{event.venue_link}}</td>
                                     <td>
                                         <div class="d-flex column-gap-2">
                                             <button class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#editEventModal" (click)="editEvent(event)">Edit</button>

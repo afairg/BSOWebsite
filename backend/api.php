@@ -82,9 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/b
     $imageurl = $input['imageurl'];
     $general_ticket_price = $input['general_ticket_price'];
     $senior_ticket_price = $input['senior_ticket_price'];
+    $venue_link = $input['venue_link'];
 
-    $stmt = $conn->prepare("INSERT INTO events (title, type, date, description, detailed_description, location, imageurl, general_ticket_price, senior_ticket_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-    $stmt->bind_param("sssssssdd", $title, $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price);
+    $stmt = $conn->prepare("INSERT INTO events (title, type, date, description, detailed_description, location, imageurl, general_ticket_price, senior_ticket_price, venue_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+    $stmt->bind_param("sssssssdds", $title, $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price, $venue_link);
 
     if ($stmt->execute()) {
         http_response_code(201);
@@ -135,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/ba
 
     if (!isset($input['title']) || !isset($input['type']) || !isset($input['date']) || !isset($input['description']) || !isset($input['location']) || !isset($input['imageurl']) || !isset($input['detailed_description']) || !isset($input['general_ticket_price']) || !isset($input['senior_ticket_price'])) {
         http_response_code(400);
-        echo json_encode(["error" => "Invalid input. All fields are required."]);
+        echo json_encode(["error" => "Invalid input. Missing required fields."]);
         exit;
     }
 
@@ -148,9 +149,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/ba
     $imageurl = $input['imageurl'];
     $general_ticket_price = $input['general_ticket_price'];
     $senior_ticket_price = $input['senior_ticket_price'];
+    $venue_link = $input['venue_link'];
 
-    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, detailed_description = ?, location = ?, imageurl = ?, general_ticket_price = ?, senior_ticket_price = ? WHERE title = ?");
-    $stmt->bind_param("ssssssdds", $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price, $title);
+    $stmt = $conn->prepare("UPDATE events SET type = ?, date = ?, description = ?, detailed_description = ?, location = ?, imageurl = ?, general_ticket_price = ?, senior_ticket_price = ?, venue_link = ? WHERE title = ?");
+    $stmt->bind_param("ssssssddss", $type, $date, $description, $detailed_description, $location, $imageurl, $general_ticket_price, $senior_ticket_price, $venue_link, $title);
 
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {

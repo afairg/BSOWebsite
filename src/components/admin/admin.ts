@@ -31,7 +31,8 @@ export class Admin {
     location: '',
     imageurl: '',
     general_ticket_price: 0,
-    senior_ticket_price: 0
+    senior_ticket_price: 0,
+    venue_link: ''
   };
   selectedEvent: Event = {
     title: '',
@@ -43,7 +44,8 @@ export class Admin {
     location: '',
     imageurl: '',
     general_ticket_price: 0,
-    senior_ticket_price: 0
+    senior_ticket_price: 0,
+    venue_link: ''
   };
   newPersonnel: Personnel = {
     fullname: '',
@@ -248,7 +250,7 @@ export class Admin {
     if (this.selectedFile) {
     // Upload image first
       const formData = new FormData();
-      formData.append('image', this.selectedFile);
+      formData.append('file', this.selectedFile);
 
       this.eventService.uploadImage(formData).subscribe({
         next: (response: any) => {
@@ -288,7 +290,7 @@ export class Admin {
     if (this.selectedFile) {
     // Upload image first
       const formData = new FormData();
-      formData.append('image', this.selectedFile);
+      formData.append('file', this.selectedFile);
 
       this.personnelService.uploadImage(formData).subscribe({
         next: (response: any) => {
@@ -329,7 +331,7 @@ export class Admin {
     if (this.selectedFile) {
     // Upload image first
       const formData = new FormData();
-      formData.append('image', this.selectedFile);
+      formData.append('file', this.selectedFile);
 
       this.sponsorService.uploadImage(formData).subscribe({
         next: (response: any) => {

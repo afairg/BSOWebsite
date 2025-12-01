@@ -21,7 +21,8 @@ export class EventDetailComponent {
     location: '',
     imageurl: '',
     general_ticket_price: 0,
-    senior_ticket_price: 0
+    senior_ticket_price: 0,
+    venue_link: ''
   })
 
   constructor (private eventService: EventService) {}
