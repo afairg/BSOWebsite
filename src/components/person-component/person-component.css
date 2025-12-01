@@ -68,3 +68,7 @@
         min-height: calc(40vh - 56px);
     }
 }
+
+.person-component {
+    height: 100%;
+}
