@@ -359,60 +359,85 @@ export class Admin {
 
   // Delete an item by title
   deleteEvent(eventTitle: string) {
-    if (confirm(`Are you sure you want to delete the event: ${eventTitle}?`)) {
-      this.eventService.deleteEvent(eventTitle).subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Success!',
-            icon: 'success',
-            text: `Event "${eventTitle}" deleted successfully`,
-            timer: 2000
-          })
-          this.loadEvents();
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      })
-    }
+    Swal.fire({
+      title: `Are you sure?`,
+      text: `You are about to delete the event: ${eventTitle}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventService.deleteEvent(eventTitle).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Success!',
+              icon: 'success',
+              text: `Event "${eventTitle}" deleted successfully`,
+              timer: 2000
+            })
+            this.loadEvents();
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
+    });
   }
 
   deletePersonnel(fullName: string) {
-    if (confirm(`Are you sure you want to delete this person: ${fullName}?`)) {
-      this.personnelService.deletePersonnel(fullName).subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Success!',
-            icon: 'success',
-            text: `Person "${fullName}" deleted successfully.`,
-            timer: 2000
-          })
-          this.loadPersonnel();
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      })
-    }
+    Swal.fire({
+      title: `Are you sure?`,
+      text: `You are about to delete the person: ${fullName}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personnelService.deletePersonnel(fullName).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Success!',
+              icon: 'success',
+              text: `Person "${fullName}" deleted successfully.`,
+              timer: 2000
+            })
+            this.loadPersonnel();
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
+    });
   }
 
   deleteSponsor(name: string) {
-    if (confirm(`Are you sure you want to delete the event: ${name}?`)) {
-      this.sponsorService.deleteSeasonSponsor(name).subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Success!',
-            icon: 'success',
-            text: `Sponsor "${name}" deleted successfully.`,
-            timer: 2000
-          });
-          this.loadSponsors();
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      })
-    }
+    Swal.fire({
+      title: `Are you sure?`,
+      text: `You are about to delete the sponsor: ${name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.sponsorService.deleteSeasonSponsor(name).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Success!',
+              icon: 'success',
+              text: `Sponsor "${name}" deleted successfully.`,
+              timer: 2000
+            });
+            this.loadSponsors();
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
+    });
+      
   }
 
   // Prepare to edit an event
